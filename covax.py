@@ -43,7 +43,7 @@ def sql(str_sql,str_con):
 
 week = str(st.slider ("Week: ", min_value=25, max_value=34, value=34, step=1))
 
-df_states = sql("SELECT * from covax WHERE Week = " + week, con())
+df_states = sql("SELECT * from covax WHERE Week = " + str(week), con())
 
 # -------------------------------------------------------------
 
