@@ -47,11 +47,12 @@ st.title('Covax')
  
                   
 status = st.radio('Select column: ',
-                  ('Name', 'Code','Population100K'))
+                  ('Plot', 'Code','Population100K'))
  
-if(status == 'Name'):
+if(status == 'Plot'):
 
-    st.text(df_states['StateName'])
+    sns.regplot(x="avg_Series_Complete_Pop_Pct", y="avg_total_adult_patients_hospitalized_confirmed_covid", data=df_states)
+
 elif(status == 'Code'):
 
     st.text(df_states['StateCode'])  
