@@ -61,7 +61,7 @@ with xData:
 with yData:
     yData = st.radio("y-Axis", ('AdultHospitalized','ChildrenHospitalized','Deaths'))       
 
-sns.regplot(x=xData, y=yData, data=df_states)
+sns.regplot(x="PropVaccinated", y="AdultHospitalized", data=df_states)
 plt.ylim(-10, None)
 st.pyplot()
 
