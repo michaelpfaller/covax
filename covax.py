@@ -43,11 +43,11 @@ def sql(str_sql,str_con):
 week = 34
 @st.cache()
 def loadWeek(week):
-    df_states = sql("SELECT * from covax WHERE Week = " + str(week), con())
-
+    df = sql("SELECT * from covax WHERE Week = " + str(week), con())
+    return(df)
 # -------------------------------------------------------------
 
-loadWeek(week)
+df_states = loadWeek(week)
 st.title('Covax')
 
 with st.sidebar:
