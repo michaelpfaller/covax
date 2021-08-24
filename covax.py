@@ -47,15 +47,13 @@ df_states = sql("SELECT * from covax WHERE Week = " + week, con())
 # give a title to our app
 st.title('Covax')
  
-if(status == 'Plot'):
+xData, yData = st.beta_columns((1,1))
 
-    xData, yData = st.beta_columns((1,1))
+with xData:
+    xData = st.radio("x-Axis", ('PropVaccinated','PropVaccinated12','PropVaccinated18','PropVaccinated65'))
 
-    with xData:
-        xData = st.radio("x-Axis", ('PropVaccinated','PropVaccinated12','PropVaccinated18','PropVaccinated65'))
+with yData:
+    yData = st.radio("y-Axis", ('AdultHospitalized','ChildrenHospitalized','Deaths'))       
 
-    with yData:
-        yData = st.radio("y-Axis", ('AdultHospitalized','ChildrenHospitalized','Deaths'))       
-    
-    sns.regplot(x=xData, y=yData, data=df_states)
-    st.pyplot()
+sns.regplot(x=xData, y=yData, data=df_states)
+st.pyplot()
