@@ -6,7 +6,7 @@ import seaborn as sns
 import streamlit as st
 import sqlalchemy
 
-def con(db_schema = 'web97_db2', db_typ = 'mysql+mysqlconnector', db_user = 'web97_2:youshallnotpass', db_adr = 'server4.webgo24.de:3306', echo=1):
+def con(db_schema = st.secrets["db_schema"], db_typ = 'mysql+mysqlconnector', db_user = st.secrets["db_user"]+":"+st.secrets["db_pass"], db_adr = st.secrets["db_server"]+":3306", echo=1):
     try:
         str_connection = f'{db_typ}://{db_user}@{db_adr}/{db_schema}'    
         if echo == 1:
@@ -44,7 +44,7 @@ st.title('Covax')
  
 
 status = st.radio('Select column: ',
-                  ('Name', 'Code','Save CSV'))
+                  ('Name', 'Code','Population100K'))
  
 if(status == 'Name'):
 
@@ -56,6 +56,7 @@ elif(status == 'Code'):
     
 elif(status == 'Save CSV'):
 
-    df_states.to_csv('states.csv', mode='a', index=False)
+    st.text(df_states['Population100K'])
+
 else:
     st.text("Please choose")
