@@ -49,30 +49,28 @@ df_states = sql("SELECT * from covax WHERE Week = " + week, con())
 
 st.title('Covax')
 
-sidebar, main = st.columns((1,3))
-
-with sidebar:
+with st.sidebar:
     st.write(df_states.columns) 
 
-with main:
-    xData, yData = st.columns((1,1))
+# main
+xData, yData = st.columns((1,1))
 
-    with xData:
-        xData = st.radio("x-Axis", ('PropVaccinated','PropVaccinated12','PropVaccinated18','PropVaccinated65'))
+with xData:
+    xData = st.radio("x-Axis", ('PropVaccinated','PropVaccinated12','PropVaccinated18','PropVaccinated65'))
 
-    with yData:
-        yData = st.radio("y-Axis", ('AdultHospitalized','ChildrenHospitalized','Deaths'))       
+with yData:
+    yData = st.radio("y-Axis", ('AdultHospitalized','ChildrenHospitalized','Deaths'))       
 
-    sns.regplot(x=xData, y=yData, data=df_states)
-    plt.ylim(-10, None)
-    st.pyplot()
+sns.regplot(x=xData, y=yData, data=df_states)
+plt.ylim(-10, None)
+st.pyplot()
 
-    info1 = st.expander("Info 1", expanded=False)
-    with info1:
-        st.write("Info 1")
-    info2 = st.expander("Info 2", expanded=False)
-    with info2:
-        st.write("Info 2")
-    info3 = st.expander("Info 3", expanded=False)
-    with info3:
-        st.write("Info 3")
+info1 = st.expander("Info 1", expanded=False)
+with info1:
+    st.write("Info 1")
+info2 = st.expander("Info 2", expanded=False)
+with info2:
+    st.write("Info 2")
+info3 = st.expander("Info 3", expanded=False)
+with info3:
+    st.write("Info 3")
