@@ -1,13 +1,21 @@
+import datetime
+#import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
 import streamlit as st
 
-df_states = pd.read_csv("states.csv")
+import sqlalchemy
 
+import functions
+
+df_states = sql("SELECT * from covax WHERE Week = 33", con())
 
 # give a title to our app
 st.title('Covax')
  
-# 
+
 status = st.radio('Select column: ',
                   ('Name', 'Code','Save CSV'))
  
