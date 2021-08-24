@@ -6,7 +6,6 @@ import seaborn as sns
 import sqlalchemy
 
 import streamlit as st
-st.set_option('deprecation.showPyplotGlobalUse', False)
 
 def con(db_schema = st.secrets["db_schema"], db_typ = 'mysql+mysqlconnector', db_user = st.secrets["db_user"]+":"+st.secrets["db_pass"], db_adr = st.secrets["db_server"]+":3306", echo=1):
     try:
@@ -47,6 +46,7 @@ df_states = sql("SELECT * from covax WHERE Week = " + week, con())
 # -------------------------------------------------------------
 
 st.set_page_config(layout="wide")
+st.set_option('deprecation.showPyplotGlobalUse', False)
 
 st.title('Covax')
 
