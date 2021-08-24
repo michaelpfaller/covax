@@ -60,7 +60,7 @@ if 'week' not in locals():
     df_week = loadWeek(week)
 
     if 'df_states' not in locals():
-        State = df_week[['StateName','StateCode']]
+        df_states = df_week[['StateName','StateCode']]
 
 # -------------------------------------------------------------
 
