@@ -108,13 +108,16 @@ elif pages=="Single States over Time":
     currentState = st.selectbox("", df_states['StateName'])
     
     df_state = loadState(currentState)
-    st.write(df_state)
     
     yData = st.selectbox("", list(df_state.columns.drop(["StateName","StateCode","Year","Week","Population100K"])))
     
     sns.lineplot(x="Week", y=yData, data=df_state)
     st.pyplot()
-    
+
+    dataTable = st.expander("Data Table", expanded=False)
+    with dataTable:
+        st.write(df_state)
+        
 elif pages=="Correlations over Time":
 
     st.write("More to come")
