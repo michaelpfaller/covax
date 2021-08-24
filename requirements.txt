@@ -2,3 +2,4 @@ datetime
 matplotlib
 seaborn
 sqlalchemy
+mysql
