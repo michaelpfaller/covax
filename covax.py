@@ -51,8 +51,9 @@ status = st.radio('Select column: ',
  
 if(status == 'Plot'):
 
+    fig = plt.Figure(figsize=(12,7))
     sns.regplot(x="avg_Series_Complete_Pop_Pct", y="avg_total_adult_patients_hospitalized_confirmed_covid", data=df_states)
-    st.pyplot()
+    st.pyplot(fig)
     
 elif(status == 'Code'):
 
