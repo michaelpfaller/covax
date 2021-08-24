@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import sqlalchemy
 
+currentWeek = 34
+
 import streamlit as st
 st.set_page_config(layout="wide")
 st.set_option('deprecation.showPyplotGlobalUse', False)
@@ -41,27 +43,37 @@ def sql(str_sql,str_con):
         raise
 
 if 'week' not in locals():
-    week = 34
-    st.write("week was set to 34")
-    
+    # todo: set to current week
+    week = currentWeek
+    df_week = loadWeek(week)
+
+    if 'df_states' not in locals():
+        State = df_week['StateName','StateCode']
+        
 @st.cache(suppress_st_warning=True)
 def loadWeek(week):
-    st.write("running loadWeek")
+    st.write("fetching data from database")
     df = sql("SELECT * from covax WHERE Week = " + str(week), con())
     return(df)
+    
+def loadState(StateName):
+    st.write("fetching data from database")
+    df = sql("SELECT * from covax WHERE StateName = " + StateName, con())
+    return(df)
+
 # -------------------------------------------------------------
 
 st.title('Covax')
 
 with st.sidebar:
-    pages = st.radio("", ("Single Correlations", "Correlation over Time", "Info"))
+    pages = st.radio("", ("Single Correlations", "Single States over Time", "Correlation over Time", "Info"))
 
 # main
 if pages=="Single Correlations":
 
-    week = st.slider("Week: ", min_value=25, max_value=34, value=34, step=1)
-    df_states = loadWeek(week)
-    
+    week = st.slider("Week: ", min_value=1, max_value=currentWeek, value=currentWeek, step=1)
+    df_week = loadWeek(week)
+        
     xData, yData, misc = st.columns((1,1,1))
 
     with xData:
@@ -77,19 +89,26 @@ if pages=="Single Correlations":
         pointOption = st.selectbox("Data Points", pointOptions)
 
     #plt.figure(figsize=(4,4)) 
-    sns.regplot(x=xData, y=yData, data=df_states)
+    sns.regplot(x=xData, y=yData, data=df_week)
     plt.ylim(0, None)
     
     if pointOption=='Code':
-        for i in range(0, df_states.shape[0]):
-            plt.text(x=df_states[xData][i], y=df_states[yData][i], s=df_states['StateCode'][i])
+        for i in range(0, df_week.shape[0]):
+            plt.text(x=df_week[xData][i], y=df_week[yData][i], s=df_week['StateCode'][i])
     
     st.pyplot()
 
     dataTable = st.expander("Data Table", expanded=False)
     with dataTable:
-        st.write(df_states)
-        
+        st.write(df_week)
+
+elif pages=="Single States over Time":
+    
+    currentState = st.selectbox("x-Axis", df_states['StateName'])
+    
+    df_state = loadState(StateCode)
+    st.write(df_state)
+    
 elif pages=="Correlations over Time":
 
     st.write("More to come")
