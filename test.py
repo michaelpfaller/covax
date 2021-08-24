@@ -21,6 +21,6 @@ elif(status == 'Code'):
     
 elif(status == 'Save CSV'):
 
-    df_states.to_csv('states.csv', mode='a')
+    df_states.to_csv('states.csv', mode='a', index=False)
 else:
     st.text("Please choose")
