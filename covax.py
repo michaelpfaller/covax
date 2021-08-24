@@ -15,7 +15,8 @@ def con(db_schema = st.secrets["db_schema"], db_typ = 'mysql+mysqlconnector', db
     except:
         print('Invalid values given.')
         return ''  
-    
+
+@st.cache()    
 def sql(str_sql,str_con):
     '''Dies ist eine eigene Funktion, um jedes denkbare SQL-Statement auszuführen.'''
     try:
@@ -54,7 +55,7 @@ elif(status == 'Code'):
 
     st.text(df_states['StateCode'])
     
-elif(status == 'Save CSV'):
+elif(status == 'Population100K'):
 
     st.text(df_states['Population100K'])
 
