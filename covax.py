@@ -40,9 +40,13 @@ def sql(str_sql,str_con):
     except:
         raise
 
-week = 34
+if 'week' not in locals():
+    week = 34
+    print("week was set to 34")
+    
 @st.cache()
 def loadWeek(week):
+    st.write("running loadWeek")
     df = sql("SELECT * from covax WHERE Week = " + str(week), con())
     return(df)
 # -------------------------------------------------------------
@@ -51,13 +55,13 @@ df_states = loadWeek(week)
 st.title('Covax')
 
 with st.sidebar:
-    pages = st.radio("Pages", ("Single Correlations", "Correlation over Time", "Info"))
+    pages = st.radio("", ("Single Correlations", "Correlation over Time", "Info"))
 
 # main
 if pages=="Single Correlations":
 
     week = st.slider("Week: ", min_value=25, max_value=34, value=34, step=1)
-
+    
     xData, yData, misc = st.columns((1,1,1))
 
     with xData:
@@ -66,13 +70,19 @@ if pages=="Single Correlations":
 
     with yData:
         yColumns = ['AdultHospitalized','ChildrenHospitalized','Deaths']
-        yData = st.selectbox("y-Axis", yColumns)       
+        yData = st.selectbox("y-Axis", yColumns)     
 
     with misc:
-        st.write("TBD")
+        pointOptions = ['Default','Code','Number']
+        pointOption = st.selectbox("Data Points", pointOptions)
 
+    plt.figure(figsize=(4,4)) 
     sns.regplot(x=xData, y=yData, data=df_states)
-    #plt.ylim(-10, None)
+    plt.ylim(0, None)
+    
+    if pointOption=='Code':
+        plt.text(x=df_states[xData], y=df_states[xData], s=df_states['StateCode'])
+    
     st.pyplot()
 
 elif pages=="Correlations over Time":
