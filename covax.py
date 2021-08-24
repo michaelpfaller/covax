@@ -40,27 +40,22 @@ def sql(str_sql,str_con):
     except:
         raise
 
-week = str(st.slider ("Week: ", min_value=32, max_value=34, value=34, step=1))
+week = str(st.slider ("Week: ", min_value=25, max_value=34, value=34, step=1))
 
 df_states = sql("SELECT * from covax WHERE Week = " + week, con())
 
 # give a title to our app
 st.title('Covax')
  
-                  
-status = st.radio('Select column: ',
-                  ('Plot', 'Code','Population100K'))
- 
 if(status == 'Plot'):
 
-    sns.regplot(x="avg_Series_Complete_Pop_Pct", y="avg_total_adult_patients_hospitalized_confirmed_covid", data=df_states)
-    st.pyplot()
+    xData, yData = st.beta_columns((1,1))
+
+    with xData:
+        xData = st.radio("x-Axis", ('PropVaccinated','PropVaccinated12','PropVaccinated18','PropVaccinated65'))
+
+    with yData:
+        yData = st.radio("y-Axis", ('AdultHospitalized','ChildrenHospitalized','Deaths'))       
     
-elif(status == 'Code'):
-
-    st.text(df_states['StateCode'])  
-elif(status == 'Population100K'):
-
-    st.text(df_states['Population100K'])
-else:
-    st.text("Please choose") 
+    sns.regplot(x=xData, y=yData, data=df_states)
+    st.pyplot()
