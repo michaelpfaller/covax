@@ -42,16 +42,15 @@ def sql(str_sql,str_con):
 
 if 'week' not in locals():
     week = 34
-    print("week was set to 34")
+    st.write("week was set to 34")
     
-@st.cache()
+@st.cache(suppress_st_warning=True)
 def loadWeek(week):
     st.write("running loadWeek")
     df = sql("SELECT * from covax WHERE Week = " + str(week), con())
     return(df)
 # -------------------------------------------------------------
 
-df_states = loadWeek(week)
 st.title('Covax')
 
 with st.sidebar:
@@ -61,6 +60,7 @@ with st.sidebar:
 if pages=="Single Correlations":
 
     week = st.slider("Week: ", min_value=25, max_value=34, value=34, step=1)
+    df_states = loadWeek(week)
     
     xData, yData, misc = st.columns((1,1,1))
 
