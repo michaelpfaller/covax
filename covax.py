@@ -18,8 +18,7 @@ def con(db_schema = st.secrets["db_schema"], db_typ = 'mysql+mysqlconnector', db
     except:
         print('Invalid values given.')
         return ''  
-
-@st.cache()    
+ 
 def sql(str_sql,str_con):
     '''Dies ist eine eigene Funktion, um jedes denkbare SQL-Statement auszuführen.'''
     try:
@@ -41,10 +40,14 @@ def sql(str_sql,str_con):
     except:
         raise
 
-df_states = sql("SELECT * from covax WHERE Week = " + week, con())
+week = 34
+@st.cache()
+def loadWeek(week):
+    df_states = sql("SELECT * from covax WHERE Week = " + week, con())
 
 # -------------------------------------------------------------
 
+loadWeek(week)
 st.title('Covax')
 
 with st.sidebar:
