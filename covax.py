@@ -50,7 +50,7 @@ df_states = sql("SELECT * from covax WHERE Week = " + week, con())
 st.title('Covax')
 
 with st.sidebar:
-    st.write(df_states.columns) 
+    st.write(df_states.dtypes) 
 
 # main
 xData, yData = st.columns((1,1))
@@ -62,7 +62,7 @@ with yData:
     yData = st.radio("y-Axis", ('AdultHospitalized','ChildrenHospitalized','Deaths'))       
 
 sns.regplot(x="PropVaccinated", y="AdultHospitalized", data=df_states)
-plt.ylim(-10, None)
+#plt.ylim(-10, None)
 st.pyplot()
 
 info1 = st.expander("Info 1", expanded=False)
