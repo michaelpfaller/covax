@@ -44,10 +44,11 @@ week = str(st.slider ("Week: ", min_value=25, max_value=34, value=34, step=1))
 
 df_states = sql("SELECT * from covax WHERE Week = " + week, con())
 
-# give a title to our app
-st.title('Covax')
+# -------------------------------------------------------------
 
-st.print(df_states.columns) 
+st.set_page_config(layout="wide")st.title('Covax')
+
+st.write(df_states.columns) 
 
 xData, yData = st.columns((1,1))
 
@@ -59,3 +60,10 @@ with yData:
 
 sns.regplot(x=xData, y=yData, data=df_states)
 st.pyplot()
+
+info1 = st.beta_expander("Info 1", expanded=False)
+with info1:
+    st.write("Info 1")
+info2 = st.beta_expander("Info 2", expanded=False)
+with info2:
+    st.write("Info 2")
