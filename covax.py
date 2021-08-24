@@ -52,7 +52,8 @@ status = st.radio('Select column: ',
 if(status == 'Plot'):
 
     sns.regplot(x="avg_Series_Complete_Pop_Pct", y="avg_total_adult_patients_hospitalized_confirmed_covid", data=df_states)
-
+    st.pyplot()
+    
 elif(status == 'Code'):
 
     st.text(df_states['StateCode'])  
