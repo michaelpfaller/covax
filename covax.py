@@ -38,26 +38,25 @@ def sql(str_sql,str_con):
     except:
         raise
 
-df_states = sql("SELECT * from covax WHERE Week = 33", con())
+df_states = sql("SELECT * from covax WHERE Week = " + week, con())
 
 # give a title to our app
 st.title('Covax')
  
 
+week = int(st.radio('Week: ', ('33', '34')))
+                  
 status = st.radio('Select column: ',
                   ('Name', 'Code','Population100K'))
  
 if(status == 'Name'):
 
     st.text(df_states['StateName'])
-
 elif(status == 'Code'):
 
-    st.text(df_states['StateCode'])
-    
+    st.text(df_states['StateCode'])  
 elif(status == 'Population100K'):
 
     st.text(df_states['Population100K'])
-
 else:
-    st.text("Please choose")
+    st.text("Please choose") 
