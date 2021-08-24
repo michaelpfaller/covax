@@ -53,22 +53,27 @@ with st.sidebar:
     st.write(df_states.columns)
 
 # main
-xData, yData = st.columns((1,1))
+xData, yData, misc = st.columns((1,1,1))
 
 with xData:
-    xData = st.radio("x-Axis", ('PropVaccinated','PropVaccinated12','PropVaccinated18','PropVaccinated65'))
+    xColumns = ['PropVaccinated','PropVaccinated12','PropVaccinated18','PropVaccinated65']
+    xData = st.selectbox("x-Axis", xColumns)
 
 with yData:
-    yData = st.radio("y-Axis", ('AdultHospitalized','ChildrenHospitalized','Deaths'))       
+    yColumns = ['AdultHospitalized','ChildrenHospitalized','Deaths']
+    yData = st.selectbox("y-Axis", yColumns)       
 
-sns.regplot(x="PropVaccinated", y="AdultHospitalized", data=df_states)
+with misc:
+    st.write("TBD")
+
+sns.regplot(x=xData, y=yData, data=df_states)
 #plt.ylim(-10, None)
 st.pyplot()
 
-info1 = st.expander("Info 1", expanded=False)
+info1 = st.expander("Interpretation", expanded=False)
 with info1:
     st.write("Info 1")
-info2 = st.expander("Info 2", expanded=False)
+info2 = st.expander("Data Processing", expanded=False)
 with info2:
     st.write("Info 2")
 info3 = st.expander("Info 3", expanded=False)
