@@ -21,6 +21,6 @@ elif(status == 'Code'):
     
 elif(status == 'Save CSV'):
 
-    df_states.to_csv('https://github.com/michaelpfaller/covax/neu.csv')
+    df_states.to_csv('states.csv', mode='a')
 else:
     st.text("Please choose")
