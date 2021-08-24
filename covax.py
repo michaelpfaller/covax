@@ -43,7 +43,7 @@ def sql(str_sql,str_con):
 week = 34
 @st.cache()
 def loadWeek(week):
-    df_states = sql("SELECT * from covax WHERE Week = " + week, con())
+    df_states = sql("SELECT * from covax WHERE Week = " + str(week), con())
 
 # -------------------------------------------------------------
 
@@ -56,7 +56,7 @@ with st.sidebar:
 # main
 if pages=="Single Correlations":
 
-    week = str(st.slider ("Week: ", min_value=25, max_value=34, value=34, step=1))
+    week = st.slider("Week: ", min_value=25, max_value=34, value=34, step=1)
 
     xData, yData, misc = st.columns((1,1,1))
 
