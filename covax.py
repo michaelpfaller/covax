@@ -51,7 +51,7 @@ def loadWeek(week):
 @st.cache(suppress_st_warning=True)    
 def loadState(StateName):
     st.write("fetching data from database")
-    df = sql("SELECT * from covax WHERE StateName = " + StateName, con())
+    df = sql("SELECT * from covax WHERE StateName = '" + StateName + "'", con())
     return(df)
 
 if 'week' not in locals():
