@@ -76,15 +76,20 @@ if pages=="Single Correlations":
         pointOptions = ['Default','Code','Number']
         pointOption = st.selectbox("Data Points", pointOptions)
 
-    plt.figure(figsize=(4,4)) 
+    #plt.figure(figsize=(4,4)) 
     sns.regplot(x=xData, y=yData, data=df_states)
     plt.ylim(0, None)
     
     if pointOption=='Code':
-        plt.text(x=df_states[xData], y=df_states[xData], s=df_states['StateCode'])
+        for i in range(0, df_states.shape[0]):
+            plt.text(x=df_states[xData][i], y=df_states[yData][i], s=df_states['StateCode'][i])
     
     st.pyplot()
 
+    dataTable = st.expander("Data Table", expanded=False)
+    with dataTable:
+        st.write(df_states)
+        
 elif pages=="Correlations over Time":
 
     st.write("More to come")
