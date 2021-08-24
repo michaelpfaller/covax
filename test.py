@@ -9,7 +9,7 @@ st.title('Covax')
  
 # 
 status = st.radio('Select column: ',
-                  ('Name', 'Code'))
+                  ('Name', 'Code','Save CSV'))
  
 if(status == 'Name'):
 
@@ -18,5 +18,9 @@ if(status == 'Name'):
 elif(status == 'Code'):
 
     st.text(df_states['Code'])
+elif(status == 'Save CSV'):
+
+    df_states.to_csv('neu.csv')
 else:
     st.text("Please choose")
+    
