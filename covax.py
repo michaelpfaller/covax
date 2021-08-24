@@ -41,8 +41,6 @@ def sql(str_sql,str_con):
     except:
         raise
 
-week = str(st.slider ("Week: ", min_value=25, max_value=34, value=34, step=1))
-
 df_states = sql("SELECT * from covax WHERE Week = " + week, con())
 
 # -------------------------------------------------------------
@@ -50,32 +48,43 @@ df_states = sql("SELECT * from covax WHERE Week = " + week, con())
 st.title('Covax')
 
 with st.sidebar:
-    st.write(df_states.columns)
+    pages = st.radio("Pages", ("Single Correlations", "Correlation over Time", "Info"))
 
 # main
-xData, yData, misc = st.columns((1,1,1))
+if pages=="Single Correlations":
 
-with xData:
-    xColumns = ['PropVaccinated','PropVaccinated12','PropVaccinated18','PropVaccinated65']
-    xData = st.selectbox("x-Axis", xColumns)
+    with Page
+    week = str(st.slider ("Week: ", min_value=25, max_value=34, value=34, step=1))
 
-with yData:
-    yColumns = ['AdultHospitalized','ChildrenHospitalized','Deaths']
-    yData = st.selectbox("y-Axis", yColumns)       
+    xData, yData, misc = st.columns((1,1,1))
 
-with misc:
-    st.write("TBD")
+    with xData:
+        xColumns = ['PropVaccinated','PropVaccinated12','PropVaccinated18','PropVaccinated65']
+        xData = st.selectbox("x-Axis", xColumns)
 
-sns.regplot(x=xData, y=yData, data=df_states)
-#plt.ylim(-10, None)
-st.pyplot()
+    with yData:
+        yColumns = ['AdultHospitalized','ChildrenHospitalized','Deaths']
+        yData = st.selectbox("y-Axis", yColumns)       
 
-info1 = st.expander("Interpretation", expanded=False)
-with info1:
-    st.write("Info 1")
-info2 = st.expander("Data Processing", expanded=False)
-with info2:
-    st.write("Info 2")
-info3 = st.expander("Info 3", expanded=False)
-with info3:
-    st.write("Info 3")
+    with misc:
+        st.write("TBD")
+
+    sns.regplot(x=xData, y=yData, data=df_states)
+    #plt.ylim(-10, None)
+    st.pyplot()
+
+elif pages=="Correlations over Time":
+
+    st.write("More to come")
+
+elif pages=="Info":
+
+    info1 = st.expander("Interpretation", expanded=False)
+    with info1:
+        st.write("Info 1")
+    info2 = st.expander("Data Processing", expanded=False)
+    with info2:
+        st.write("Info 2")
+    info3 = st.expander("Info 3", expanded=False)
+    with info3:
+        st.write("Info 3")
