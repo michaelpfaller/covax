@@ -41,6 +41,18 @@ def sql(str_sql,str_con):
         return pd.DataFrame()
     except:
         raise
+        
+@st.cache(suppress_st_warning=True)
+def loadWeek(week):
+    st.write("fetching data from database")
+    df = sql("SELECT * from covax WHERE Week = " + str(week), con())
+    return(df)
+
+@st.cache(suppress_st_warning=True)    
+def loadState(StateName):
+    st.write("fetching data from database")
+    df = sql("SELECT * from covax WHERE StateName = " + StateName, con())
+    return(df)
 
 if 'week' not in locals():
     # todo: set to current week
@@ -49,17 +61,6 @@ if 'week' not in locals():
 
     if 'df_states' not in locals():
         State = df_week['StateName','StateCode']
-        
-@st.cache(suppress_st_warning=True)
-def loadWeek(week):
-    st.write("fetching data from database")
-    df = sql("SELECT * from covax WHERE Week = " + str(week), con())
-    return(df)
-    
-def loadState(StateName):
-    st.write("fetching data from database")
-    df = sql("SELECT * from covax WHERE StateName = " + StateName, con())
-    return(df)
 
 # -------------------------------------------------------------
 
@@ -106,7 +107,7 @@ elif pages=="Single States over Time":
     
     currentState = st.selectbox("x-Axis", df_states['StateName'])
     
-    df_state = loadState(StateCode)
+    df_state = loadState(currentState)
     st.write(df_state)
     
 elif pages=="Correlations over Time":
