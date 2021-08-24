@@ -46,7 +46,9 @@ df_states = sql("SELECT * from covax WHERE Week = " + week, con())
 
 # -------------------------------------------------------------
 
-st.set_page_config(layout="wide")st.title('Covax')
+st.set_page_config(layout="wide")
+
+st.title('Covax')
 
 st.write(df_states.columns) 
 
