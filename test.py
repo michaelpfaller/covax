@@ -19,7 +19,7 @@ def con(db_schema = 'web97_db2', db_typ = 'mysql+mysqlconnector', db_user = 'web
 def sql(str_sql,str_con):
     '''Dies ist eine eigene Funktion, um jedes denkbare SQL-Statement auszuführen.'''
     try:
-        f_engine  = create_engine(str_con)
+        f_engine  = sqlalchemy.create_engine(str_con)
         df_return = pd.read_sql(str_sql, f_engine)
         print("Die Aktion wurde erfolgreich ausgeführt.")
         return df_return        
