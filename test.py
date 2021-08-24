@@ -13,14 +13,14 @@ status = st.radio('Select column: ',
  
 if(status == 'Name'):
 
-    st.text(df_states['Name'])
+    st.text(df_states['StateName'])
 
 elif(status == 'Code'):
 
-    st.text(df_states['Code'])
+    st.text(df_states['StateCode'])
+    
 elif(status == 'Save CSV'):
 
-    df_states.to_csv('neu.csv')
+    df_states.to_csv('https://github.com/michaelpfaller/covax/neu.csv')
 else:
     st.text("Please choose")
-    
