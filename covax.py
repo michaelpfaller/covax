@@ -46,8 +46,10 @@ df_states = sql("SELECT * from covax WHERE Week = " + week, con())
 
 # give a title to our app
 st.title('Covax')
- 
-xData, yData = st.beta_columns((1,1))
+
+st.print(df_states.columns) 
+
+xData, yData = st.columns((1,1))
 
 with xData:
     xData = st.radio("x-Axis", ('PropVaccinated','PropVaccinated12','PropVaccinated18','PropVaccinated65'))
